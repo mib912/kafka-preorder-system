@@ -4,7 +4,7 @@
 <mapper namespace="com.example.mapper.PreorderMapper">
 
     <!-- 단말 등록 -->
-    <insert id="insertDevice" parameterType="com.example.dto.DeviceInfoReqDto">
+    <insert id="insertDeviceInfo" parameterType="com.example.dto.DeviceInfoReqDto">
         INSERT INTO device (
             product_id,
             product_name,
@@ -38,11 +38,10 @@
     </select>
 
     <!-- 이벤트 등록 -->
-    <insert id="insertPreorderEvent" parameterType="com.example.dto.PreorderEventReqDto">
+    <insert id="insertEventInfo" parameterType="com.example.dto.PreorderEventReqDto">
         INSERT INTO preorder_event (
             event_id,
             event_name,
-            product_id,
             start_time,
             end_time,
             preorder_type,
@@ -51,7 +50,6 @@
         ) VALUES (
                      #{eventId},
                      #{eventName},
-                     #{productId},
                      #{startTime},
                      #{endTime},
                      #{preorderType},
@@ -65,7 +63,6 @@
         SELECT
             event_id AS eventId,
             event_name AS eventName,
-            product_id AS productId,
             start_time AS startTime,
             end_time AS endTime,
             preorder_type AS preorderType,
@@ -73,5 +70,14 @@
             max_order_per_user AS maxOrderPerUser
         FROM preorder_event
     </select>
+
+    <!-- 이벤트-단말 매핑 등록 -->
+    <insert id="insertEventDeviceMap">
+        INSERT INTO event_device_map (event_id, product_id)
+        VALUES
+        <foreach collection="productIds" item="productId" separator=",">
+            (#{eventId}, #{productId})
+        </foreach>
+    </insert>
 
 </mapper>

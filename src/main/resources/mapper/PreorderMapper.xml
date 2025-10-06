@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.mapper.PreorderMapper">
+
+    <!-- 단말 등록 -->
+    <insert id="insertDevice" parameterType="com.example.dto.DeviceInfoReqDto">
+        INSERT INTO device (
+            product_id,
+            product_name,
+            brand,
+            model,
+            color,
+            capacity,
+            price
+        ) VALUES (
+                     #{productId},
+                     #{productName},
+                     #{brand},
+                     #{model},
+                     #{color},
+                     #{capacity},
+                     #{price}
+                 )
+    </insert>
+
+    <!-- 단말 전체 조회 -->
+    <select id="selectAllDevices" resultType="com.example.dto.DeviceInfoReqDto">
+        SELECT
+            product_id AS productId,
+            product_name AS productName,
+            brand,
+            model,
+            color,
+            capacity,
+            price
+        FROM device
+    </select>
+
+    <!-- 이벤트 등록 -->
+    <insert id="insertPreorderEvent" parameterType="com.example.dto.PreorderEventReqDto">
+        INSERT INTO preorder_event (
+            event_id,
+            event_name,
+            product_id,
+            start_time,
+            end_time,
+            preorder_type,
+            benefit_description,
+            max_order_per_user
+        ) VALUES (
+                     #{eventId},
+                     #{eventName},
+                     #{productId},
+                     #{startTime},
+                     #{endTime},
+                     #{preorderType},
+                     #{benefitDescription},
+                     #{maxOrderPerUser}
+                 )
+    </insert>
+
+    <!-- 이벤트 전체 조회 -->
+    <select id="selectAllEvents" resultType="com.example.dto.PreorderEventReqDto">
+        SELECT
+            event_id AS eventId,
+            event_name AS eventName,
+            product_id AS productId,
+            start_time AS startTime,
+            end_time AS endTime,
+            preorder_type AS preorderType,
+            benefit_description AS benefitDescription,
+            max_order_per_user AS maxOrderPerUser
+        FROM preorder_event
+    </select>
+
+</mapper>

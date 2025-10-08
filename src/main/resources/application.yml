@@ -1,4 +1,8 @@
 spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Seoul
+
   kafka:
     bootstrap-servers: localhost:9092
     producer:

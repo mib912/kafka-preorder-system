@@ -25,7 +25,7 @@
     </insert>
 
     <!-- 이벤트 등록 -->
-    <insert id="insertEventInfo" parameterType="com.example.dto.PreorderEventReqDto">
+    <insert id="insertEventInfo" parameterType="com.example.dto.PreorderEventDto">
         INSERT INTO preorder_event (
             event_id,
             event_name,
@@ -68,5 +68,38 @@
             ON d.product_id = edm.product_id
         WHERE edm.event_id = #{eventId}
     </select>
+
+    <!-- 이벤트 단건 조회 -->
+    <select id="selectEventById" parameterType="string" resultType="com.example.dto.PreorderEventDto">
+        SELECT e.event_id,
+               e.event_name,
+               e.start_time,
+               e.end_time,
+               e.preorder_type,
+               e.benefit_description,
+               e.max_order_per_user,
+               e.created_at
+        FROM preorder_event e
+        WHERE e.event_id = #{eventId}
+    </select>
+
+    <!-- 이벤트 정보 수정 -->
+    <update id="updateEventInfo">
+        UPDATE preorder_event
+        SET
+            event_name = #{event.eventName},
+            start_time = #{event.startTime},
+            end_time = #{event.endTime},
+            preorder_type = #{event.preorderType},
+            benefit_description = #{event.benefitDescription},
+            max_order_per_user = #{event.maxOrderPerUser}
+        WHERE event_id = #{eventId}
+    </update>
+
+    <!-- 이벤트-단말 매핑 삭제 -->
+    <delete id="deleteEventDeviceMap">
+        DELETE FROM event_device_map
+        WHERE event_id = #{eventId}
+    </delete>
 
 </mapper>

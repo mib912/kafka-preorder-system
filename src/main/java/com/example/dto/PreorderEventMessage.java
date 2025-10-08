@@ -1,8 +1,10 @@
 package com.example.dto;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.*;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * 사전예약 이벤트 정보 DTO
@@ -12,14 +14,16 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class PreorderEventMessage {
 
-    private String eventId;            // 이벤트 고유 ID (ex: E20251010-01)
-    private String eventName;          // 이벤트 이름 (ex: iPhone 17 Pro 사전예약 이벤트)
-    private String productId;          // 대상 단말 ID
-    private String startTime;          // 이벤트 시작 시각
-    private String endTime;            // 이벤트 종료 시각
-    private String preorderType;       // 예약 방식 (online / offline / mixed)
-    private String benefitDescription; // 혜택 설명 (선택)
-    private int maxOrderPerUser;       // 1인당 예약 가능 수량 (선택)
+    private String eventId;
+    private String eventName;
+    private String preorderType;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime startTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime endTime;
+    private List<DeviceInfoDto> devices;
 }

@@ -1,6 +1,6 @@
 package com.example.mapper;
 
-import com.example.dto.DeviceInfoReqDto;
+import com.example.dto.DeviceInfoDto;
 import com.example.dto.PreorderEventReqDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -10,9 +10,11 @@ import java.util.List;
 @Mapper
 public interface PreorderMapper {
 
-    void insertDeviceInfo(DeviceInfoReqDto deviceInfoReqDto);
+    int insertDeviceInfo(DeviceInfoDto deviceInfoDto);
 
-    void insertEventInfo(PreorderEventReqDto preorderEventReqDto);
+    int insertEventInfo(PreorderEventReqDto preorderEventReqDto);
 
-    void insertEventDeviceMap(@Param("eventId") String eventId, @Param("productIds") List<String> productIds);
+    int insertEventDeviceMap(@Param("eventId") String eventId, @Param("productIds") List<String> productIds);
+
+    List<DeviceInfoDto> selectDevicesByEventId(@Param("eventId") String eventId);
 }

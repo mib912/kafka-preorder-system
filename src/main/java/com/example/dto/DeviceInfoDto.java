@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class DeviceInfoReqDto {
+public class DeviceInfoDto {
     private String productId;     // 단말 고유 ID (ex: IP17-PRO-256)
     private String productName;   // 단말 이름
     private String brand;         // 제조사
